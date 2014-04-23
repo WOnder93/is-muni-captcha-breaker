@@ -48,41 +48,41 @@ def flood_split(bitmap):
     sc = bitmap.shape[1]
     
     def flood_extract(r0, c0):
-        result = np.zeroes_like(bitmap)
+        result = np.ones_like(bitmap)
         stack = [(r0, c0)]
-        bitmap[r0, c0] = 0
+        bitmap[r0, c0] = 1
         min_r = r0
         max_r = r0
         min_c = c0
         max_c = c0
         while len(stack) > 0:
             r, c = stack.pop()
-            result[r, c] = 1
-            if r - 1 >= 0 and bitmap[r - 1, c]:
+            result[r, c] = 0
+            if r - 1 >= 0 and not bitmap[r - 1, c]:
                 if r is min_r:
                     min_r = r - 1
-                bitmap[r - 1, c] = 0
+                bitmap[r - 1, c] = 1
                 stack.append((r - 1, c))
-            if r + 1 < sr and bitmap[r + 1, c]:
+            if r + 1 < sr and not bitmap[r + 1, c]:
                 if r is max_r:
                     max_r = r + 1
-                bitmap[r + 1, c] = 0
+                bitmap[r + 1, c] = 1
                 stack.append((r + 1, c))
-            if c - 1 >= 0 and bitmap[r, c - 1]:
+            if c - 1 >= 0 and not bitmap[r, c - 1]:
                 if c is min_c:
                     min_c = c - 1
-                bitmap[r, c - 1] = 0
+                bitmap[r, c - 1] = 1
                 stack.append((r, c - 1))
-            if c + 1 < sc and bitmap[r, c + 1]:
+            if c + 1 < sc and not bitmap[r, c + 1]:
                 if c is max_c:
                     max_c = c + 1
-                bitmap[r, c + 1] = 0
+                bitmap[r, c + 1] = 1
                 stack.append((r, c + 1))
         return result[min_r : max_r + 1, min_c : max_c + 1]
     
     for r in xrange(sr):
         for c in xrange(sc):
-            if bitmap[r, c]:
+            if not bitmap[r, c]:
                 yield flood_extract(r, c)
 
 """ Removes noise smaller than or equal to 'level' from the bitmap. """
