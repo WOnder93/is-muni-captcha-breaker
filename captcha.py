@@ -134,7 +134,7 @@ class CaptchaBreaker(object):
     def categorize(self, captcha, level, threshold):
         for letter in flood_split(flatten(to_bitmap(captcha), level)):
             new_cat = CaptchaBreaker.Category(letter)
-            while new_cat is not None:
+            while True:
                 m = None
                 for i in xrange(len(self.categories)):
                     cat = self.categories[i]
@@ -149,7 +149,6 @@ class CaptchaBreaker(object):
                         break
                 if m is None:
                     self.categories.append(new_cat)
-                    new_cat = None
                     break
                 
     def match(self, captcha, level, threshold):

@@ -53,18 +53,22 @@ def categorize(breaker, samples, max_samples, LEVEL, THRESHOLD):
             breaker.categorize(sample, LEVEL, THRESHOLD)
             processed += 1
             print "OK!"
-        except:
-            print "Not an image!"
+        except ex:
+            print "FAIL!"
+            print "--"
+            print ex
+            print "--"
             pass
 
 def rename(breaker):
-    for i in xrange(len(breaker.categories)):
-        while True:
-            io.imshow(breaker.categories[i].pattern, 'pil')
-            name = raw_input("Enter new name for {{{0}}}: ".format(breaker.categories[i].name))
-            if name != '':
-                breaker.categories[i].name = name
-                break
+    i = 0
+    while i < len(breaker.categories):
+        io.imshow(breaker.categories[i].pattern, 'pil')
+        name = raw_input("Enter new name for {{{0}}}: ".format(breaker.categories[i].name))
+        if name != '':
+            breaker.categories[i].name = name
+            i += 1
+        else:
             print "Deleting glyph pattern..."
             del breaker.categories[i]
             
