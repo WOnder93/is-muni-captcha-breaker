@@ -6,7 +6,7 @@ A proof-of-concept decoder for the CAPTCHAs used by the Information System of Ma
 
 On 12 April 2014 the staff of the [Information System of Masaryk University](https://is.muni.cz/) (IS) introduced a new anti-[scraping](https://en.wikipedia.org/wiki/Web_scraping) policy to prevent user-created programs from excessively overloading the IS with automatic requests (students would often use automatic page reloaders to increase their chances of getting a prefered seminar group or exam date during time competitions and leave them running for too long). This new policy involves per-user counters for separate parts of the IS that increase with each web request/operation performed by the user and decrease each minute by a specific amount. If a counter exceeds the limit of one or more counters, all further user's request are redirected to a page where they can reset all counters by decoding a simple CAPTCHA.
 
-This project demonstrates the weakness of this type of CAPTCHA by providing a simple utility written in Python (using the `numpy` and `scikit-image` libraries) that is able to automatically recognize the symbols on the CAPTCHA.
+This project demonstrates the weakness of this type of CAPTCHA by providing a simple utility written in Python 2.7 (using the [numpy](http://docs.scipy.org/doc/numpy/) and [scikit-image](http://scikit-image.org) libraries) that is able to automatically recognize the symbols in the CAPTCHA.
 
 **DISCLAIMER:** While I do use certain automated tools myself, I do not intend to and do not need to circumvent the imposed limits by means of automated CAPTCHA decoding. I respect the new anti-scraping policy and I think it leaves sufficient capacity for responsibly written tools designed for legitimate purposes, such as gaining advantage in seminar group enrollment. I wrote this software merely for fun and to show how easy it is to crack this kind of CAPTCHA.
 
@@ -57,6 +57,10 @@ ABCDEF
 ```
 
 The `--show` flag tells the program to display the image that it is decoding.
+
+### Success rate
+
+So far I couldn't find any sample that my program wouldn't get right, so the success rate is at least close to 100%... If you happen to find a sample that is recognized incorrectly, please contact me ;)
 
 ### How it works
 
